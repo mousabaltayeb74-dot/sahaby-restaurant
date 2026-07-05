@@ -3,86 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مطعم سحابي | Cloud Restaurant</title>
+  <title>Golden Bite Restaurant</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topbar">
-    <div class="brand"><span>👨‍🍳</span><div><strong>سحابي</strong><small>RESTAURANT</small></div></div>
-    <nav>
-      <a href="#home">الرئيسية</a><a href="#menu">القائمة</a><a href="#drinks">المشروبات</a><a href="#checkout">الدفع</a>
-    </nav>
-    <button class="cart-pill" onclick="scrollToCart()">🛒 السلة <b id="cartCount">0</b></button>
+    <div class="brand">
+      <div class="logo">🍽️</div>
+      <div>
+        <h1>جولدن بايت</h1>
+        <span>GOLDEN BITE RESTAURANT</span>
+      </div>
+    </div>
+    <button class="cartBtn" onclick="scrollToCart()">🛒 السلة <b id="cartCount">0</b></button>
   </header>
 
-  <section class="hero" id="home">
-    <div class="hero-text">
-      <p class="tag">جودة عالية • طعم لا يقاوم</p>
-      <h1>أشهى الأطعمة<br><span>بانتظارك</span></h1>
-      <p>مطعم سحابي يقدم وجبات متنوعة ومشروبات طازجة مع تجربة طلب سهلة ودفع نقدي أو عبر بنكك.</p>
-      <a class="primary" href="#menu">استعرض القائمة</a>
+  <section class="hero">
+    <div class="heroText">
+      <p class="tag">جودة عالية • مذاق لا يقاوم • توصيل سريع</p>
+      <h2>أشهى الأطعمة والمشروبات في مكان واحد</h2>
+      <p>اطلب وجبتك المفضلة، اختر طريقة الدفع كاش أو بنكك، واستمتع بتجربة طلب سهلة واحترافية.</p>
+      <button onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">استعرض القائمة</button>
     </div>
-    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80" alt="Burger meal" />
+    <div class="heroImage">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80" alt="Burger">
+    </div>
+  </section>
+
+  <section class="features">
+    <div>🚚 توصيل سريع</div>
+    <div>💳 دفع كاش أو بنكك</div>
+    <div>⭐ جودة ممتازة</div>
+    <div>📱 طلب عبر واتساب</div>
+  </section>
+
+  <section class="controls">
+    <input id="searchInput" type="text" placeholder="ابحث عن وجبة أو مشروب..." oninput="renderMenu()" />
+    <div class="categories" id="categories"></div>
   </section>
 
   <main class="layout">
-    <section class="content">
-      <h2>التصنيفات</h2>
-      <div class="categories">
-        <button onclick="filterItems('all')">الكل</button>
-        <button onclick="filterItems('fast')">وجبات سريعة</button>
-        <button onclick="filterItems('eastern')">مأكولات شرقية</button>
-        <button onclick="filterItems('italian')">إيطالية</button>
-        <button onclick="filterItems('grill')">مشاوي</button>
-        <button onclick="filterItems('sea')">بحريات</button>
-        <button onclick="filterItems('dessert')">حلويات</button>
-        <button onclick="filterItems('drink')">مشروبات</button>
-      </div>
-
-      <h2 id="menu">قائمة الأطعمة والمشروبات</h2>
-      <div id="menuGrid" class="grid"></div>
-
-      <section class="offer">
-        <div><h2>عرض خاص</h2><p>خصم 20% على الطلبات التي تزيد عن 20 دولار</p></div>
-        <button onclick="scrollToCart()">اطلب الآن</button>
-      </section>
+    <section id="menu" class="menu">
+      <h2>القائمة</h2>
+      <div id="itemsGrid" class="itemsGrid"></div>
     </section>
 
-    <aside class="side" id="checkout">
-      <section class="cart" id="cartBox">
-        <h2>سلة الطلبات</h2>
-        <div id="cartItems" class="cart-items empty">السلة فارغة</div>
-        <div class="totals">
-          <div><span>المجموع الفرعي</span><b id="subtotal">$0.00</b></div>
-          <div><span>الضريبة 10%</span><b id="tax">$0.00</b></div>
-          <div class="total"><span>الإجمالي</span><b id="total">$0.00</b></div>
-        </div>
-        <button class="outline" onclick="clearCart()">تفريغ السلة 🗑️</button>
-      </section>
+    <aside id="cart" class="cart">
+      <h2>سلة الطلبات</h2>
+      <div id="cartItems"></div>
 
-      <section class="checkout">
-        <h2>إتمام الطلب</h2>
+      <div class="summary">
+        <div><span>المجموع الفرعي</span><b id="subtotal">0 SDG</b></div>
+        <div><span>رسوم التوصيل</span><b id="delivery">1500 SDG</b></div>
+        <div><span>الضريبة 5%</span><b id="tax">0 SDG</b></div>
+        <div class="total"><span>الإجمالي</span><b id="total">0 SDG</b></div>
+      </div>
+
+      <div class="checkout">
+        <h3>إتمام الطلب</h3>
         <input id="customerName" placeholder="اسم العميل" />
         <input id="phone" placeholder="رقم الهاتف" />
         <input id="address" placeholder="عنوان التوصيل" />
-        <h3>طريقة الدفع</h3>
-        <label><input type="radio" name="payment" value="cash" checked /> دفع كاش عند الاستلام</label>
-        <label><input type="radio" name="payment" value="bankak" /> بنكك / تحويل بنكي</label>
-        <div id="bankakInfo" class="bankak hidden">
-          <strong>بيانات بنكك</strong>
-          <p>رقم الحساب: 1234 5678 9012</p>
-          <p>اسم الحساب: مطعم سحابي</p>
-          <small>بعد التحويل احتفظ بالإشعار للتأكيد.</small>
+
+        <label class="pay"><input type="radio" name="payment" value="كاش عند الاستلام" checked> كاش عند الاستلام</label>
+        <label class="pay"><input type="radio" name="payment" value="بنكك"> بنكك</label>
+
+        <div id="bankInfo" class="bankInfo">
+          <b>بيانات بنكك:</b>
+          <p>رقم الحساب: 123456789</p>
+          <p>اسم الحساب: Golden Bite Restaurant</p>
         </div>
-        <button class="primary full" onclick="submitOrder()">تأكيد الطلب ✅</button>
-        <p id="orderMessage" class="message hidden"></p>
-      </section>
+
+        <button class="confirm" onclick="confirmOrder()">تأكيد الطلب عبر واتساب</button>
+        <button class="clear" onclick="clearCart()">تفريغ السلة</button>
+      </div>
     </aside>
   </main>
 
+  <section class="about">
+    <h2>من نحن</h2>
+    <p>جولدن بايت مطعم عصري يقدم وجبات متنوعة، مشروبات، حلويات، وأطباق عالمية ومحلية بتصميم طلب إلكتروني سهل ومناسب لجميع الأجهزة.</p>
+  </section>
+
   <footer>
-    <div><strong>سحابي Restaurant</strong><p>مطعم إلكتروني متكامل لعرض المأكولات والمشروبات وإدارة الطلبات.</p></div>
-    <div><b>التواصل</b><p>+249 912 345 678</p><p>Khartoum, Sudan</p></div>
+    <div>
+      <h3>Golden Bite</h3>
+      <p>تجربة طعام فاخرة بخدمة سريعة.</p>
+    </div>
+    <div>
+      <h3>التواصل</h3>
+      <p>📞 +249 912 345 678</p>
+      <p>📍 الخرطوم، السودان</p>
+    </div>
+    <div>
+      <h3>ساعات العمل</h3>
+      <p>يوميًا من 10 صباحًا إلى 12 مساءً</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مطعم سحابي | Cloud Restaurant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span>👨‍🍳</span><div><strong>سحابي</strong><small>RESTAURANT</small></div></div>
+    <nav>
+      <a href="#home">الرئيسية</a><a href="#menu">القائمة</a><a href="#drinks">المشروبات</a><a href="#checkout">الدفع</a>
+    </nav>
+    <button class="cart-pill" onclick="scrollToCart()">🛒 السلة <b id="cartCount">0</b></button>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <p class="tag">جودة عالية • طعم لا يقاوم</p>
+      <h1>أشهى الأطعمة<br><span>بانتظارك</span></h1>
+      <p>مطعم سحابي يقدم وجبات متنوعة ومشروبات طازجة مع تجربة طلب سهلة ودفع نقدي أو عبر بنكك.</p>
+      <a class="primary" href="#menu">استعرض القائمة</a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80" alt="Burger meal" />
+  </section>
+
+  <main class="layout">
+    <section class="content">
+      <h2>التصنيفات</h2>
+      <div class="categories">
+        <button onclick="filterItems('all')">الكل</button>
+        <button onclick="filterItems('fast')">وجبات سريعة</button>
+        <button onclick="filterItems('eastern')">مأكولات شرقية</button>
+        <button onclick="filterItems('italian')">إيطالية</button>
+        <button onclick="filterItems('grill')">مشاوي</button>
+        <button onclick="filterItems('sea')">بحريات</button>
+        <button onclick="filterItems('dessert')">حلويات</button>
+        <button onclick="filterItems('drink')">مشروبات</button>
+      </div>
+
+      <h2 id="menu">قائمة الأطعمة والمشروبات</h2>
+      <div id="menuGrid" class="grid"></div>
+
+      <section class="offer">
+        <div><h2>عرض خاص</h2><p>خصم 20% على الطلبات التي تزيد عن 20 دولار</p></div>
+        <button onclick="scrollToCart()">اطلب الآن</button>
+      </section>
+    </section>
+
+    <aside class="side" id="checkout">
+      <section class="cart" id="cartBox">
+        <h2>سلة الطلبات</h2>
+        <div id="cartItems" class="cart-items empty">السلة فارغة</div>
+        <div class="totals">
+          <div><span>المجموع الفرعي</span><b id="subtotal">$0.00</b></div>
+          <div><span>الضريبة 10%</span><b id="tax">$0.00</b></div>
+          <div class="total"><span>الإجمالي</span><b id="total">$0.00</b></div>
+        </div>
+        <button class="outline" onclick="clearCart()">تفريغ السلة 🗑️</button>
+      </section>
+
+      <section class="checkout">
+        <h2>إتمام الطلب</h2>
+        <input id="customerName" placeholder="اسم العميل" />
+        <input id="phone" placeholder="رقم الهاتف" />
+        <input id="address" placeholder="عنوان التوصيل" />
+        <h3>طريقة الدفع</h3>
+        <label><input type="radio" name="payment" value="cash" checked /> دفع كاش عند الاستلام</label>
+        <label><input type="radio" name="payment" value="bankak" /> بنكك / تحويل بنكي</label>
+        <div id="bankakInfo" class="bankak hidden">
+          <strong>بيانات بنكك</strong>
+          <p>رقم الحساب: 1234 5678 9012</p>
+          <p>اسم الحساب: مطعم سحابي</p>
+          <small>بعد التحويل احتفظ بالإشعار للتأكيد.</small>
+        </div>
+        <button class="primary full" onclick="submitOrder()">تأكيد الطلب ✅</button>
+        <p id="orderMessage" class="message hidden"></p>
+      </section>
+    </aside>
+  </main>
+
+  <footer>
+    <div><strong>سحابي Restaurant</strong><p>مطعم إلكتروني متكامل لعرض المأكولات والمشروبات وإدارة الطلبات.</p></div>
+    <div><b>التواصل</b><p>+249 912 345 678</p><p>Khartoum, Sudan</p></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
